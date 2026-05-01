@@ -76,7 +76,12 @@ export default function Upload() {
       setTimeout(() => {
         clearTimeout(loadingInterval);
         setIsLoading(false);
-        navigate('/review', { state: { extractionData: sampleData } });
+        const uniqueMockData = {
+          ...sampleData,
+          case_number: `WP ${Math.floor(10000 + Math.random() * 90000)}/2026`,
+          petitioner: file.name.replace('.pdf', '')
+        };
+        navigate('/review', { state: { extractionData: uniqueMockData } });
       }, 3000); // add a slight delay for realism
     }
   };

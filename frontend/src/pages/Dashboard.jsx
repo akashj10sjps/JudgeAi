@@ -185,9 +185,10 @@ export default function Dashboard() {
       try {
         const res = await axios.get(`${API}/dashboard`);
         const backendData = Array.isArray(res.data) ? res.data : [];
-        // Also merge in any locally-saved cases (for Render ephemeral disk)
+        // Merge backend, local, and MOCK_DATA
         const local = JSON.parse(localStorage.getItem('judgeai_cases') || '[]');
-        const merged = [...backendData, ...local];
+        const merged = [...local, ...backendData, ...MOCK_DATA];
+        
         // Deduplicate by case_number
         const seen = new Set();
         const deduped = merged.filter(c => {
@@ -195,11 +196,18 @@ export default function Dashboard() {
           seen.add(c.case_number);
           return true;
         });
-        setCases(deduped.length > 0 ? deduped : MOCK_DATA);
+        setCases(deduped);
       } catch {
         // On network failure, use locally saved + mock
         const local = JSON.parse(localStorage.getItem('judgeai_cases') || '[]');
-        setCases(local.length > 0 ? local : MOCK_DATA);
+        const merged = [...local, ...MOCK_DATA];
+        const seen = new Set();
+        const deduped = merged.filter(c => {
+          if (seen.has(c.case_number)) return false;
+          seen.add(c.case_number);
+          return true;
+        });
+        setCases(deduped);
       } finally {
         setLoading(false);
       }
