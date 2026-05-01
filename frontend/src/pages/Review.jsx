@@ -73,10 +73,32 @@ export default function Review() {
     finalData.directions = finalDirections;
     finalData.reviewer = reviewerName;
 
+    // Always save to localStorage for dashboard persistence
+    // (handles Render ephemeral disk + offline scenarios)
+    try {
+      const dashboardEntry = {
+        case_number: finalData.case_number,
+        petitioner: finalData.petitioner,
+        respondent: finalData.respondent,
+        department: finalData.department,
+        directions: finalData.directions,
+        deadline: finalData.deadline,
+        approved_at: new Date().toISOString().split('T')[0],
+        reviewer_name: reviewerName,
+      };
+      const existing = JSON.parse(localStorage.getItem('judgeai_cases') || '[]');
+      // Upsert: replace if same case_number already exists
+      const updated = existing.filter(c => c.case_number !== dashboardEntry.case_number);
+      updated.unshift(dashboardEntry);
+      localStorage.setItem('judgeai_cases', JSON.stringify(updated));
+    } catch (storageErr) {
+      console.warn('localStorage save failed:', storageErr);
+    }
+
     try {
       await axios.post(`${API}/approve`, finalData);
     } catch (e) {
-      console.warn("Backend save failed, simulating success for demo");
+      console.warn("Backend save failed, falling back to localStorage only");
     }
 
     setIsSaving(false);
