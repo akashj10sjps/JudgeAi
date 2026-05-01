@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 import LoadingSpinner from '../components/LoadingSpinner';
 import sampleData from '../mock/sampleData.json';
 
@@ -60,7 +62,7 @@ export default function Upload() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:8000/extract', formData, {
+      const response = await axios.post(`${API}/extract`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

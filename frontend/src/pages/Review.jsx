@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
+
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 import ReviewField from '../components/ReviewField';
 
 export default function Review() {
@@ -72,7 +74,7 @@ export default function Review() {
     finalData.reviewer = reviewerName;
 
     try {
-      await axios.post('http://localhost:8000/approve', finalData);
+      await axios.post(`${API}/approve`, finalData);
     } catch (e) {
       console.warn("Backend save failed, simulating success for demo");
     }

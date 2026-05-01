@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const MOCK_DATA = [
   {
     case_number: "WP 45231/2024",
@@ -179,7 +181,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/dashboard');
+        const res = await axios.get(`${API}/dashboard`);
         setCases(res.data);
       } catch {
         setCases(MOCK_DATA);
