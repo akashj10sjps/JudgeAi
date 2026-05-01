@@ -1,0 +1,19 @@
+{
+  "case_number": "WP 45231/2024",
+  "date": "2024-11-15",
+  "petitioner": "M/s Bangalore Metro Infrastructure Pvt Ltd",
+  "respondent": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
+  "directions": [
+    "Issue the pending occupancy certificate within 45 days",
+    "Pay compensation of Rs 2.5 lakhs for undue delay",
+    "File a compliance report before the Registry by next date"
+  ],
+  "deadline": "2024-12-30",
+  "department": "BBMP - Building Plan Approval Department",
+  "confidence": {
+    "case_number": "high",
+    "date": "high", 
+    "directions": "medium",
+    "deadline": "low"
+  }
+}
