@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API = '/api';
 import ReviewField from '../components/ReviewField';
 
 export default function Review() {
@@ -71,7 +71,17 @@ export default function Review() {
       }
     });
     finalData.directions = finalDirections;
-    finalData.reviewer = reviewerName;
+    const payload = {
+      case_number: finalData.case_number,
+      date: finalData.date,
+      petitioner: finalData.petitioner,
+      respondent: finalData.respondent,
+      directions: finalDirections,
+      deadline: finalData.deadline,
+      department: finalData.department,
+      reviewer_name: reviewerName,
+      ai_original: data // The original AI extraction results
+    };
 
     // Always save to localStorage for dashboard persistence
     // (handles Render ephemeral disk + offline scenarios)
@@ -96,7 +106,7 @@ export default function Review() {
     }
 
     try {
-      await axios.post(`${API}/approve`, finalData);
+      await axios.post(`${API}/approve`, payload);
     } catch (e) {
       console.warn("Backend save failed, falling back to localStorage only");
     }
