@@ -62,7 +62,7 @@ def extract_with_gemini(text: str) -> dict:
         raise RuntimeError("GEMINI_API_KEY not set in environment")
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-pro-latest")
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     prompt = f"{GEMINI_PROMPT}\n\n--- DOCUMENT TEXT ---\n{text}"
     response = model.generate_content(prompt)
