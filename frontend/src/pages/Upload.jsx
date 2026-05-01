@@ -93,12 +93,22 @@ export default function Upload() {
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-br from-primary-50 to-white">
       <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-10">
         
-        <div className="text-center mb-10">
-          <div className="flex justify-center items-center gap-3 mb-2">
-            <svg className="w-10 h-10 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-            <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">Judge<span className="text-primary-600">AI</span></h1>
+        <div className="flex justify-between items-start mb-10 relative">
+          <div className="w-full text-center">
+            <div className="flex justify-center items-center gap-3 mb-2">
+              <svg className="w-10 h-10 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">Judge<span className="text-primary-600">AI</span></h1>
+            </div>
+            <p className="text-lg text-gray-500 font-medium">Court Judgment Intelligence System</p>
           </div>
-          <p className="text-lg text-gray-500 font-medium">Court Judgment Intelligence System</p>
+          
+          <button 
+            onClick={() => navigate('/dashboard')} 
+            className="absolute right-0 top-0 text-primary-600 font-medium hover:text-primary-700 transition-colors flex items-center gap-1.5 bg-primary-50 px-3 py-1.5 rounded-lg border border-primary-100"
+          >
+            Dashboard
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
         </div>
 
         {isLoading ? (

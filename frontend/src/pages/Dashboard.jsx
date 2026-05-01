@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -171,6 +172,7 @@ function DetailModal({ caseData, onClose }) {
 
 /* ───────── Dashboard ───────── */
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -261,17 +263,27 @@ export default function Dashboard() {
       {/* ── Header ── */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-3">
-          <div className="flex items-center gap-3">
-            {/* Karnataka emblem placeholder */}
-            <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
-              <svg className="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-3">
+              {/* Karnataka emblem placeholder */}
+              <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
+                <svg className="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">Judge<span className="text-primary-600">AI</span> Dashboard</h1>
+                <p className="text-xs text-gray-500 font-medium">Verified court action plans pending compliance</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">Judge<span className="text-primary-600">AI</span> Dashboard</h1>
-              <p className="text-xs text-gray-500 font-medium">Verified court action plans pending compliance</p>
-            </div>
+            
+            <button 
+              onClick={() => navigate('/')} 
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+              Upload Order
+            </button>
           </div>
         </div>
       </header>
