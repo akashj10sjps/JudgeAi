@@ -71,7 +71,10 @@ export default function Upload() {
       setIsLoading(false);
       navigate('/review', { state: { extractionData: response.data } });
     } catch (err) {
-      console.warn('Backend extraction failed, falling back to mock data:', err);
+      console.warn('Backend extraction failed:', err);
+      const backendError = err.response?.data?.detail || err.message;
+      alert(`Backend AI Extraction Failed: ${backendError}\n\nFalling back to mock data so you can test the UI.`);
+      
       // Fallback to sampleData if backend fails
       setTimeout(() => {
         clearTimeout(loadingInterval);
@@ -82,7 +85,7 @@ export default function Upload() {
           petitioner: file.name.replace('.pdf', '')
         };
         navigate('/review', { state: { extractionData: uniqueMockData } });
-      }, 3000); // add a slight delay for realism
+      }, 1000);
     }
   };
 
